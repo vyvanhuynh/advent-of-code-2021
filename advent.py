@@ -37,7 +37,7 @@ def count_sum_increase():
 def calculate_position():
     file = open("data2.txt")
     content = file.read()
-    direction_ls = content.splitlines()
+    direction_ls = content.splitlines() #list of strings
     horizontal = 0
     depth = 0
 
@@ -82,7 +82,6 @@ def calculate_position_with_aim():
 def binaryToDecimal(n): # n is of string type
     return int(n,2)
 
-
 def find_common_bit_gamma(binary_ls):
     common_count_1 = 0
     common_count_0 = 0
@@ -111,7 +110,7 @@ def find_common_bit_eps(binary_ls):
         common = 0
     return common
 
-def convert_ls_to_int(list):
+def convert_ls_to_int(list): # convert a list of int to a single int 
     s = [str(i) for i in list]
     res = "".join(s)
     return(res)
@@ -173,3 +172,55 @@ def calculate_power_consumption():
 
     result = gamma_rate_decimal * eps_rate_decimal
     print(result)
+
+# day 3 part 2
+def calculate_oxygen_generator_rating():
+    file = open("data3.txt")
+    content = file.read()
+    binary_list = content.splitlines()
+    
+    i = 0 
+    while i <= 11:
+        one_ls = [] 
+        zero_ls = []  
+        for binary in binary_list:
+            if int(binary[i]) == 1:
+                one_ls.append(binary)
+            else:
+                zero_ls.append(binary)
+        if len(one_ls) >= len(zero_ls):
+            binary_list = one_ls
+        else:
+            binary_list = zero_ls
+        i += 1
+    
+    result = binaryToDecimal(binary_list[0])
+    return result
+
+def calculate_CO2_scrubber_rating():
+    file = open("data3.txt")
+    content = file.read()
+    binary_list = content.splitlines()
+    
+    i = 0 
+    while i <= 11 and binary_list != []:
+        one_ls = [] 
+        zero_ls = []  
+        for binary in binary_list:
+            if int(binary[i]) == 1:
+                one_ls.append(binary)
+            else:
+                zero_ls.append(binary)
+        if len(one_ls) < len(zero_ls):
+            binary_list = one_ls
+        elif len(one_ls) >= len(zero_ls):
+            binary_list = zero_ls
+        i += 1
+        
+    result = binaryToDecimal(one_ls[0])
+    return result
+
+def calculate_life_support_rating():
+    print (int(calculate_oxygen_generator_rating()) * int(calculate_CO2_scrubber_rating()))
+
+
